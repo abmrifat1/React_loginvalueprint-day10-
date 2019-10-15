@@ -15,9 +15,13 @@ import {
   StatusBar,
   TextInput,
   TouchableOpacity,
-  ScrollView,
+  ScrollView,FlatList
 } from 'react-native';
+import ListItem from "./src/components/List";
 
+ listFunction=(name)=>{
+  alert(name);
+}
 const App = () => {
   const [name, setName] = useState('');
   const saveUserName = name => {
@@ -63,20 +67,14 @@ const App = () => {
               width: '50%',
             }}
             onPress={handleSaveBtnOnClick}>
-            <Text>Submit</Text>
+            <Text style={{marginBottom: 5,}}>Submit</Text>
           </TouchableOpacity>
-          <View>
-            <Text>{name}</Text><Text>{phoneNumber}</Text>
-          </View>
-          <ScrollView >
-            {phonebooks.map((record, index) => (
-              <Text key={index.toString()}>
-              Name :{record.name} , Phone :{record.phoneNumber}
-            </Text>
-            ))}
-          </ScrollView>
-         
-          
+          {/* <View>
+            <Text>Yor name is:{name}   And Phone number is:{phoneNumber}</Text>
+          </View> */}
+          <FlatList style={{width:'100%'}} keyExtractor={(item,index)=>index.toString()} data={phonebooks} renderItem={data=>
+          <ListItem list={data.item}/>
+          }/>
         </View>
       </SafeAreaView>
     </>
